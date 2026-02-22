@@ -1,0 +1,64 @@
+version: '3.8'
+
+# Development configuration with hot-reload
+services:
+  # PostgreSQL Database
+  db:
+    image: postgres:15-alpine
+    container_name: vglug_db_dev
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-vglug}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-vglug_secret}
+      POSTGRES_DB: ${POSTGRES_DB:-training_data}
+    volumes:
+      - postgres_data_dev:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-vglug}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Backend Flask API - Development with hot-reload
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.dev
+    container_name: vglug_backend_dev
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER:-vglug}:${POSTGRES_PASSWORD:-vglug_secret}@db:5432/${POSTGRES_DB:-training_data}
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY:-dev-secret-key}
+      FLASK_ENV: development
+      FLASK_DEBUG: 1
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      OLLAMA_URL: ${OLLAMA_URL:-http://host.docker.internal:11434}
+    volumes:
+      - ./backend:/app
+      - backend_uploads_dev:/app/uploads
+    ports:
+      - "5001:5000"
+    depends_on:
+      db:
+        condition: service_healthy
+
+  # Frontend React App - Development with Vite hot-reload
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    container_name: vglug_frontend_dev
+    environment:
+      VITE_API_BASE_URL: http://localhost:5001
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
+
+volumes:
+  postgres_data_dev:
+  backend_uploads_dev:

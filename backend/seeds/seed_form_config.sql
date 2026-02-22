@@ -1,0 +1,305 @@
+-- VGLUG Application Form - Seed Data
+-- This file seeds the initial form configuration and admin user
+
+-- Clear existing data (optional - comment out if you want to keep existing data)
+-- TRUNCATE TABLE form_config CASCADE;
+-- TRUNCATE TABLE "user" CASCADE;
+
+-- Create default admin user
+-- Email: vglugadmin
+-- Password: WeGlug@123
+INSERT INTO "user" (email, password_hash, is_admin, created_at)
+VALUES (
+    'vglugadmin',
+    'scrypt:32768:8:1$uvIHGqwvjWVNkgKH$9e8a5d9e5b8e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e',
+    true,
+    NOW()
+)
+ON CONFLICT (email) DO NOTHING;
+
+-- Insert the initial form configuration for 2025
+INSERT INTO form_config (template_json, year, version, is_active, created_at, updated_at)
+VALUES (
+    '{
+  "title": "VGLUG APPLICATION FORM 2025",
+  "sections": [
+    {
+      "key": "basic_info",
+      "label": "Personal Details",
+      "fields": [
+        {
+          "label": "First Name",
+          "actual_name": "first_name",
+          "type": "text",
+          "mandatory": true
+        },
+        {
+          "label": "Last Name",
+          "actual_name": "last_name",
+          "type": "text",
+          "mandatory": true
+        },
+        {
+          "label": "Date Of Birth",
+          "actual_name": "dob",
+          "type": "date",
+          "mandatory": true
+        },
+        {
+          "label": "Email",
+          "actual_name": "email",
+          "type": "text",
+          "mandatory": true
+        },
+        {
+          "label": "Contact Number",
+          "actual_name": "contact",
+          "type": "text",
+          "mandatory": true
+        },
+        {
+          "label": "Is this the WhatsApp number?",
+          "actual_name": "contact_as_whatsapp",
+          "type": "boolean",
+          "mandatory": true,
+          "default": false
+        },
+        {
+          "label": "WhatsApp Number",
+          "actual_name": "watsapp_contact",
+          "type": "text",
+          "mandatory": false,
+          "condition": "contact_as_whatsapp == false"
+        },
+        {
+          "label": "Parent / Guardian Number",
+          "actual_name": "parent_contact",
+          "type": "text",
+          "mandatory": true
+        },
+        {
+          "label": "Differently Abled?",
+          "actual_name": "differently_abled",
+          "type": "boolean",
+          "mandatory": true
+        },
+        {
+          "label": "Do you have laptop?",
+          "actual_name": "is_laptop_available",
+          "type": "boolean",
+          "mandatory": true
+        },
+        {
+          "label": "Laptop Details - RAM (in GB)",
+          "actual_name": "laptop_ram",
+          "type": "number",
+          "mandatory": false,
+          "condition": "is_laptop_available == true"
+        },
+        {
+          "label": "Laptop Details - CPU",
+          "actual_name": "laptop_cpu",
+          "type": "text",
+          "mandatory": false,
+          "condition": "is_laptop_available == true"
+        }
+      ]
+    },
+    {
+      "key": "educational_info",
+      "label": "Educational Details",
+      "fields": [
+        {
+          "label": "5th to 8th Schooling",
+          "actual_name": "5_to_8_school",
+          "type": "text",
+          "mandatory": true
+        },
+        {
+          "label": "5th to 8th Studied in Government School?",
+          "actual_name": "5_to_8_govt_school",
+          "type": "boolean",
+          "mandatory": false
+        },
+        {
+          "label": "9th to 10th Schooling",
+          "actual_name": "9_to_10_school",
+          "type": "text",
+          "mandatory": true
+        },
+        {
+          "label": "9th to 10th Studied in Government School?",
+          "actual_name": "9_to_10_govt_school",
+          "type": "boolean",
+          "mandatory": false
+        },
+        {
+          "label": "11th to 12th Schooling",
+          "actual_name": "11_to_12_school",
+          "type": "text",
+          "mandatory": true
+        },
+        {
+          "label": "11th to 12th Studied in Government School?",
+          "actual_name": "11_to_12_govt_school",
+          "type": "boolean",
+          "mandatory": false
+        },
+        {
+          "label": "Higher Degree",
+          "actual_name": "degree",
+          "type": "text",
+          "mandatory": true
+        },
+        {
+          "label": "Department",
+          "actual_name": "department",
+          "type": "text",
+          "mandatory": true
+        },
+        {
+          "label": "Year / Passed out",
+          "actual_name": "year",
+          "type": "select",
+          "mandatory": true,
+          "options": ["1", "2", "3", "4", "PASSED OUT"]
+        },
+        {
+          "label": "Passed out year",
+          "actual_name": "passed_out_year",
+          "type": "text",
+          "mandatory": true,
+          "condition": "year == ''PASSED OUT''"
+        },
+        {
+          "label": "Enter your present work",
+          "actual_name": "present_work",
+          "type": "text",
+          "mandatory": true,
+          "condition": "year == ''PASSED OUT''"
+        },
+        {
+          "label": "Have you received any scholarships?",
+          "actual_name": "scholorship_received",
+          "type": "boolean",
+          "mandatory": true
+        },
+        {
+          "label": "Enter Scholarship Details",
+          "actual_name": "scholorship_details",
+          "type": "textarea",
+          "mandatory": false,
+          "condition": "scholorship_received == true"
+        },
+        {
+          "label": "Mode of transport to college",
+          "actual_name": "transport_to_college",
+          "type": "select",
+          "mandatory": true,
+          "options": ["Cycle", "Bike", "Bus", "Walk", "Hostel"]
+        },
+        {
+          "label": "Have you applied for VGLUG training programs before? If yes select the year",
+          "actual_name": "vglug_training_applied",
+          "type": "select",
+          "mandatory": true,
+          "default": "Never Applied",
+          "options": ["2019", "2020", "2021", "2022", "2023", "2024", "2025", "Never Applied"]
+        }
+      ]
+    },
+    {
+      "key": "family_info",
+      "label": "Family Information",
+      "fields": [
+        {
+          "label": "Choose the family environment you belong to",
+          "actual_name": "raised_by_parents",
+          "type": "select",
+          "default": "Raise By Parents",
+          "options": ["Raise By Parents", "Raise By Single Parent", "Raise By Guardian"],
+          "mandatory": true
+        },
+        {
+          "label": "Please mention below",
+          "actual_name": "raised_by_parents",
+          "type": "select",
+          "options": ["Father lost", "Mother Lost"],
+          "mandatory": false,
+          "condition": "raised_by_parents == ''Raise By Single Parent''"
+        },
+        {
+          "label": "Family Members Count",
+          "actual_name": "family_members_count",
+          "type": "number",
+          "mandatory": true
+        },
+        {
+          "label": "Guardian''s Name",
+          "actual_name": "guardian_name",
+          "type": "text",
+          "mandatory": false,
+          "condition": "raised_by_parents == false"
+        },
+        {
+          "label": "Guardian''s Relationship",
+          "actual_name": "guardian_relationship",
+          "type": "text",
+          "mandatory": false,
+          "condition": "raised_by_parents == false"
+        }
+      ]
+    },
+    {
+      "key": "income_info",
+      "label": "Income & Housing Information",
+      "fields": [
+        {
+          "label": "Own House or Rental?",
+          "actual_name": "own_house_or_rental",
+          "type": "select",
+          "mandatory": true,
+          "options": ["Own House", "Rental"]
+        },
+        {
+          "label": "House Type",
+          "actual_name": "house_type",
+          "type": "select",
+          "mandatory": true,
+          "options": ["Thatched/Hut", "Tiled", "RCC/Concrete", "Apartment"]
+        },
+        {
+          "label": "Family Monthly Income (in Rs.)",
+          "actual_name": "family_income",
+          "type": "number",
+          "mandatory": true
+        },
+        {
+          "label": "Father''s Occupation",
+          "actual_name": "father_occupation",
+          "type": "text",
+          "mandatory": false
+        },
+        {
+          "label": "Mother''s Occupation",
+          "actual_name": "mother_occupation",
+          "type": "text",
+          "mandatory": false
+        },
+        {
+          "label": "Any Additional Income Sources?",
+          "actual_name": "additional_income_sources",
+          "type": "textarea",
+          "mandatory": false
+        }
+      ]
+    }
+  ]
+}'::jsonb,
+    2025,
+    1,
+    true,
+    NOW(),
+    NOW()
+)
+ON CONFLICT (year, version) DO NOTHING;

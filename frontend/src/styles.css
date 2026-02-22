@@ -1,0 +1,8 @@
+:root{
+  --brand: #00BAED;
+  --bg: #ffffff;
+  --font: 'Roboto', sans-serif;
+}
+body{ font-family: var(--font); background: var(--bg); }
+.card{ border-radius: 10px; }
+.form-label{ font-weight:500 }

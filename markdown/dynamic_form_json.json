@@ -1,0 +1,128 @@
+{
+	"title": "VGLUG APPLICATION FORM 2025",
+	"sections": [
+		{
+			"key": "basic_info",
+			"label": "Personal Details",
+			"fields": [
+				{
+					"label": "First Name",
+					"actual_name": "first_name",
+					"type": "text",
+					"mandatory": true
+				},
+				{
+					"label": "Last Name",
+					"actual_name": "last_name",
+					"type": "text",
+					"mandatory": true
+				},
+				{
+					"label": "Date Of Birth",
+					"actual_name": "dob",
+					"type": "date",
+					"mandatory": true
+				},
+				{
+					"label": "Email",
+					"actual_name": "email",
+					"type": "text",
+					"mandatory": true
+				},
+				{
+					"label": "Contact Number",
+					"actual_name": "contact",
+					"type": "text",
+					"mandatory": true
+				},
+				{
+					"label": "Is this the watsapp number?",
+					"actual_name": "contact_as_watsapp",
+					"type": "boolean",
+					"mandatory": true
+				},
+				{
+					"label": "Watsapp Number",
+					"actual_name": "watsapp_contact",
+					"type": "text",
+					"mandatory": false,
+					"condition": "contact_as_watsapp == false"
+				},
+				{
+					"label": "Parent / Gaurdian Number",
+					"actual_name": "parent_contact",
+					"type": "text",
+					"mandatory": true
+				}
+			]
+		},
+		{
+			"key": "educational_info",
+			"label": "Educational Details",
+			"fields": [
+				{
+					"label": "5th to 8th Schooling",
+					"actual_name": "5_to_8_school",
+					"type": "text",
+					"mandatory": true
+				},
+				{
+					"label": "5th to 8th Studied in Government School?",
+					"actual_name": "5_to_8_govt_school",
+					"type": "boolean",
+					"mandatory": false
+				},
+				{
+					"label": "9th to 10th Schooling",
+					"actual_name": "9_to_10_school",
+					"type": "text",
+					"mandatory": true
+				},
+				{
+					"label": "9th to 10th Studied in Government School?",
+					"actual_name": "9_to_10_govt_school",
+					"type": "boolean",
+					"mandatory": false
+				},
+				{
+					"label": "11th to 12th Schooling",
+					"actual_name": "11_to_12_school",
+					"type": "text",
+					"mandatory": true
+				},
+				{
+					"label": "11th to 12th Studied in Government School?",
+					"actual_name": "11_to_12_govt_school",
+					"type": "boolean",
+					"mandatory": false
+				},
+				{
+					"label": "Higher Degree",
+					"actual_name": "degree",
+					"type": "text",
+					"mandatory": true
+				},
+				{
+					"label": "Department",
+					"actual_name": "department",
+					"type": "text",
+					"mandatory": true
+				},
+				{
+					"label": "Year / Passed out",
+					"actual_name": "year",
+					"type": "select",
+					"mandatory": true,
+					"options": ["1", "2", "3", "4", "PASSED OUT"]
+				},
+				{
+					"label": "Passed out year",
+					"actual_name": "passed_out_year",
+					"type": "text",
+					"mandatory": true,
+					"condition": "year == 'PASSED OUT'"
+				}
+			]
+		}
+	]
+}
