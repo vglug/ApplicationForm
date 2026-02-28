@@ -58,9 +58,14 @@ def save_normalized_application(structured_data, candidate_id, uuid, form_config
 
     # Extract and save educational_info
     edu_data = structured_data.get('educational_info', [])
+    # If college_name is 'Others', use custom_college_name instead
+    college_name = extract_field_value(edu_data, 'college_name') or ''
+    custom_college_name = extract_field_value(edu_data, 'custom_college_name')
+    if college_name == 'Others' and custom_college_name:
+        college_name = custom_college_name
     educational_info = EducationalInfo(
         candidate_id=application.candidate_id,
-        college_name=extract_field_value(edu_data, 'college_name') or '',
+        college_name=college_name,
         degree=extract_field_value(edu_data, 'degree') or '',
         department=extract_field_value(edu_data, 'department') or '',
         year=extract_field_value(edu_data, 'year') or '',
@@ -262,7 +267,11 @@ def update_normalized_application(candidate_id, structured_data):
     if application.educational_info and edu_data:
         ei = application.educational_info
         if extract_field_value(edu_data, 'college_name') is not None:
-            ei.college_name = extract_field_value(edu_data, 'college_name') or ei.college_name
+            college_name = extract_field_value(edu_data, 'college_name') or ei.college_name
+            custom_college_name = extract_field_value(edu_data, 'custom_college_name')
+            if college_name == 'Others' and custom_college_name:
+                college_name = custom_college_name
+            ei.college_name = college_name
         if extract_field_value(edu_data, 'degree') is not None:
             ei.degree = extract_field_value(edu_data, 'degree') or ei.degree
         if extract_field_value(edu_data, 'department') is not None:
