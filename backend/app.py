@@ -113,6 +113,7 @@ def send_edit_link_email(email, name, edit_link, candidate_id):
     smtp_user = os.environ.get('SMTP_USER')
     smtp_password = os.environ.get('SMTP_PASSWORD')
     sender_name = os.environ.get('SMTP_SENDER_NAME', 'VGLUG Training Program')
+    from_email = os.environ.get('FROM_EMAIL', smtp_user)
 
     if not smtp_user or not smtp_password:
         return False, 'Email service not configured'
@@ -120,7 +121,7 @@ def send_edit_link_email(email, name, edit_link, candidate_id):
     try:
         msg = MIMEMultipart('alternative')
         msg['Subject'] = 'Edit Your VGLUG Application'
-        msg['From'] = f'{sender_name} <{smtp_user}>'
+        msg['From'] = f'{sender_name} <{from_email}>'
         msg['To'] = email
 
         text_content = f"""
@@ -191,7 +192,7 @@ https://vglug.org
         with smtplib.SMTP(smtp_host, smtp_port) as server:
             server.starttls()
             server.login(smtp_user, smtp_password)
-            server.sendmail(smtp_user, email, msg.as_string())
+            server.sendmail(from_email, email, msg.as_string())
 
         return True, None
 

@@ -24,6 +24,7 @@ class OTPService:
         self.smtp_user = os.environ.get('SMTP_USER')
         self.smtp_password = os.environ.get('SMTP_PASSWORD')
         self.sender_name = os.environ.get('SMTP_SENDER_NAME', 'VGLUG Training Program')
+        self.from_email = os.environ.get('FROM_EMAIL', self.smtp_user)
 
     def is_configured(self) -> bool:
         """Check if email service is properly configured"""
@@ -75,7 +76,7 @@ class OTPService:
             # Create email message
             msg = MIMEMultipart('alternative')
             msg['Subject'] = f'Your VGLUG Application OTP: {otp}'
-            msg['From'] = f'{self.sender_name} <{self.smtp_user}>'
+            msg['From'] = f'{self.sender_name} <{self.from_email}>'
             msg['To'] = email
 
             # Plain text version
@@ -139,7 +140,7 @@ https://vglug.org
             with smtplib.SMTP(self.smtp_host, self.smtp_port) as server:
                 server.starttls()
                 server.login(self.smtp_user, self.smtp_password)
-                server.sendmail(self.smtp_user, email, msg.as_string())
+                server.sendmail(self.from_email, email, msg.as_string())
 
             logger.info(f'OTP sent successfully to {email[:3]}***@{email.split("@")[1]}')
             return True, None
