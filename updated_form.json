@@ -1,0 +1,369 @@
+{
+  "sections": [
+    {
+      "fields": [
+        {
+          "actual_name": "full_name",
+          "label": "Full Name / முழு பெயர்",
+          "mandatory": true,
+          "type": "text"
+        },
+        {
+          "actual_name": "dob",
+          "label": "Date of Birth / பிறந்ததேதி",
+          "mandatory": true,
+          "type": "date"
+        },
+        {
+          "actual_name": "gender",
+          "label": "Gender / பாலினம்",
+          "mandatory": true,
+          "options": [
+            "Male / ஆண்",
+            "Female / பெண்",
+            "Other / மற்றவை"
+          ],
+          "type": "select"
+        },
+        {
+          "actual_name": "email",
+          "label": "Email Address",
+          "mandatory": true,
+          "type": "text"
+        },
+        {
+          "actual_name": "differently_abled",
+          "label": "Are you a differently abled person? / நீங்கள் மாற்றுத் திறனாளியா?",
+          "mandatory": false,
+          "type": "boolean"
+        },
+        {
+          "actual_name": "contact",
+          "label": "Contact Number / தொடர்பு எண்",
+          "mandatory": true,
+          "type": "text"
+        },
+        {
+          "actual_name": "contact_as_whatsapp",
+          "default": false,
+          "label": "Is this the WhatsApp number?",
+          "mandatory": false,
+          "type": "boolean"
+        },
+        {
+          "actual_name": "whatsapp_contact",
+          "condition": "contact_as_whatsapp == false",
+          "label": "WhatsApp Number / வாட்ஸ்அப் எண்",
+          "mandatory": false,
+          "type": "text"
+        },
+        {
+          "actual_name": "has_laptop",
+          "label": "Do you have laptop or desktop computer? / உங்களிடம் மடிக்கணினி அல்லது கணினி உள்ளதா?",
+          "mandatory": false,
+          "type": "boolean"
+        },
+        {
+          "actual_name": "laptop_ram",
+          "condition": "has_laptop == true",
+          "label": "RAM memory (in numbers. Example: 4, 8)",
+          "mandatory": false,
+          "type": "number"
+        },
+        {
+          "actual_name": "laptop_processor",
+          "condition": "has_laptop == true",
+          "label": "Processor",
+          "mandatory": false,
+          "type": "text"
+        }
+      ],
+      "key": "basic_info",
+      "label": "Personal Details / தனிப்பட்ட விவரங்கள்"
+    },
+    {
+      "fields": [
+        {
+          "actual_name": "college_name",
+          "label": "College Name / கல்லூரியின் பெயர்",
+          "mandatory": true,
+          "type": "text"
+        },
+        {
+          "actual_name": "degree",
+          "label": "Degree / பட்டம்",
+          "mandatory": true,
+          "type": "text"
+        },
+        {
+          "actual_name": "department",
+          "label": "Department / துறை",
+          "mandatory": true,
+          "type": "text"
+        },
+        {
+          "actual_name": "year",
+          "label": "Year of Studying / படிக்கும் ஆண்டு",
+          "mandatory": true,
+          "options": [
+            "2",
+            "3",
+            "Passed Out / முடித்தவர்"
+          ],
+          "type": "select"
+        },
+        {
+          "actual_name": "tamil_medium",
+          "default": false,
+          "label": "Did you pursue/pursued your degree in Tamil medium? / பட்டப்படிப்பை தமிழ் வழியில் படித்தீர்களா/படிக்கிறீர்களா ஆம் எனில் குறிப்பிடவும்",
+          "mandatory": false,
+          "type": "boolean"
+        },
+        {
+          "actual_name": "6_to_8_govt_school",
+          "default": false,
+          "label": "Did you attend government school from 6th to 8th standard? / தாங்கள் 6 முதல் 8 ஆம் வகுப்பு வரை அரசு பள்ளியில் பயின்றவரா?",
+          "mandatory": false,
+          "type": "boolean"
+        },
+        {
+          "actual_name": "6_to_8_school_name",
+          "label": "Name of the school where you studied from class 6th to 8th? / 6 முதல் 8 ஆம் வகுப்பு வரை படித்த பள்ளியின் பெயர்?",
+          "mandatory": true,
+          "type": "text"
+        },
+        {
+          "actual_name": "9_to_10_govt_school",
+          "default": false,
+          "label": "Have you studied 9th and 10th standard in government school? / தாங்கள் 9 மற்றும் 10 ஆம் வகுப்பு அரசு பள்ளியில் பயின்றவரா?",
+          "mandatory": false,
+          "type": "boolean"
+        },
+        {
+          "actual_name": "9_to_10_school_name",
+          "label": "Name of the school where you studied class 9th and 10th? / 9 மற்றும் 10 ஆம் வகுப்பு படித்த பள்ளியின் பெயர்?",
+          "mandatory": true,
+          "type": "text"
+        },
+        {
+          "actual_name": "11_to_12_govt_school",
+          "default": false,
+          "label": "Have you studied 11th and 12th standard in government school? / தாங்கள் 11 மற்றும் 12 ஆம் வகுப்பு அரசு பள்ளியில் பயின்றவரா?",
+          "mandatory": false,
+          "type": "boolean"
+        },
+        {
+          "actual_name": "11_to_12_school_name",
+          "label": "Name of the school where you studied class 11th and 12th? / 11 மற்றும் 12 ஆம் வகுப்பு படித்த பள்ளியின் பெயர்?",
+          "mandatory": true,
+          "type": "text"
+        },
+        {
+          "actual_name": "present_work",
+          "condition": "year == 'Passed Out / முடித்தவர்'",
+          "label": "Did you finished your college education? If yes then please enter your present work / நீங்கள் கல்லூரி படிப்பை முடித்தவரா? ஆம் எனில் தங்களது தற்போது பணி குறித்து தெரிவிக்கவும்",
+          "mandatory": false,
+          "type": "text"
+        },
+        {
+          "actual_name": "received_scholarship",
+          "default": false,
+          "label": "Have you received government or non-government Scholarship? / நீங்கள் அரசு அல்லது அரசு சாரா உதவித்தொகை பெற்றுள்ளீர்களா?",
+          "mandatory": false,
+          "type": "boolean"
+        },
+        {
+          "actual_name": "scholarship_details",
+          "condition": "received_scholarship == true",
+          "label": "If yes, please mention the scholarship details. / ஆம் எனில், உதவித்தொகை விவரங்களைக் குறிப்பிடவும்",
+          "mandatory": false,
+          "type": "textarea"
+        },
+        {
+          "actual_name": "transport_mode",
+          "default": "Bus / பேருந்து",
+          "label": "Mode of Transportation to reach your college? / தாங்கள் கல்லூரிக்குச் செல்வதற்கான போக்குவரத்து முறை?",
+          "mandatory": true,
+          "options": [
+            "Bus / பேருந்து",
+            "Bike / இருசக்கர வாகனம்",
+            "Cycle / மிதிவண்டி",
+            "Walk / நடந்து",
+            "Hostel / விடுதி"
+          ],
+          "type": "select"
+        },
+        {
+          "actual_name": "vglug_applied_before",
+          "default": "Never Applied / முன்பு விண்ணப்பிக்கவில்லை",
+          "label": "இதற்கு முன்பு VGLUG பயிற்சிக்கு விண்ணப்பித்தவரா? ஆம் எனில் ஆண்டை தேர்வு செய்வோம்",
+          "mandatory": true,
+          "options": [
+            "2019",
+            "2020",
+            "2021",
+            "2022",
+            "2023",
+            "2024",
+            "Never Applied / முன்பு விண்ணப்பிக்கவில்லை"
+          ],
+          "type": "select"
+        }
+      ],
+      "key": "educational_info",
+      "label": "Educational Details / கல்வி விவரங்கள்"
+    },
+    {
+      "fields": [
+        {
+          "actual_name": "family_environment",
+          "label": "Choose the family environment you belong to / தாங்கள் சார்ந்துள்ள குடும்ப சூழலை தேர்வு செய்க",
+          "mandatory": true,
+          "options": [
+            "Raised by Parents / பெற்றோருடன் வசிப்பவர்",
+            "Raised by Single Parent / ஒற்றை பெற்றோர்",
+            "Raised by Guardian / பாதுகாவலர்"
+          ],
+          "type": "select"
+        },
+        {
+          "actual_name": "single_parent_info",
+          "condition": "family_environment == 'Raised by Single Parent / ஒற்றை பெற்றோர்'",
+          "label": "Fill out the following info / பின்வரும் தகவலை நிரப்பவும்",
+          "mandatory": false,
+          "options": [
+            "Living with Mother / தாயுடன் வசிப்பவர்",
+            "Living with Father / தந்தையுடன் வசிப்பவர்"
+          ],
+          "type": "select"
+        },
+        {
+          "actual_name": "family_members_count",
+          "label": "Family members count / குடும்ப உறுப்பினர்களின் எண்ணிக்கை",
+          "mandatory": true,
+          "type": "number"
+        },
+        {
+          "actual_name": "family_members_details",
+          "label": "Family members details / குடும்ப உறுப்பினர்களின் விவரம்",
+          "mandatory": true,
+          "type": "textarea"
+        },
+        {
+          "actual_name": "earning_members_count",
+          "label": "Earning family members count / குடும்பத்தில் வருவாய் ஈட்டுவோரின் எண்ணிக்கை?",
+          "mandatory": true,
+          "type": "number"
+        },
+        {
+          "actual_name": "earning_members_details",
+          "label": "Earning family member's education and employment details (specify in detail) / வருவாய் ஈட்டும் குடும்ப உறுப்பினர்களின் கல்வி மற்றும் வேலை சார்ந்த விவரங்கள் (விரிவாக குறிப்பிடவும்)",
+          "mandatory": true,
+          "type": "textarea"
+        },
+        {
+          "actual_name": "guardian_details",
+          "condition": "family_environment == 'Raised by Guardian / பாதுகாவலர்'",
+          "label": "Guardian details (Ex: Uncle, Grand father) / பாதுகாவலர் விவரம் (எ.கா. அத்தை, மாமா, சித்தி சித்தப்பா)",
+          "mandatory": false,
+          "type": "text"
+        }
+      ],
+      "key": "family_info",
+      "label": "Family Information / குடும்ப தகவல்"
+    },
+    {
+      "fields": [
+        {
+          "actual_name": "own_land_size",
+          "label": "Do you have your own land? If yes, write the size of the land / உங்களுக்கு சொந்த நிலம் உள்ளதா? ஆம் எனில், நிலத்தின் அளவை குறிப்பிடவும்",
+          "mandatory": false,
+          "type": "text"
+        },
+        {
+          "actual_name": "house_ownership",
+          "label": "Do you have your own house? If yes, select the house type. / உங்களுக்கு சொந்த வீடு உள்ளதா? ஆம் எனில், வீட்டின் வகையை குறிப்பிடவும்",
+          "mandatory": true,
+          "options": [
+            "No House / வீடு இல்லை",
+            "Rental / வாடகை",
+            "Thatched / குடிசை",
+            "Tiled Roof / ஓடு வீடு",
+            "RCC/Concrete / கான்கிரீட் வீடு",
+            "Apartment / அடுக்குமாடி"
+          ],
+          "type": "select"
+        },
+        {
+          "actual_name": "full_address",
+          "label": "Full Address Detail / முழு முகவரி விவரம்",
+          "mandatory": true,
+          "type": "textarea"
+        },
+        {
+          "actual_name": "pincode",
+          "label": "Pincode / அஞ்சல் குறியீடு",
+          "mandatory": true,
+          "type": "text"
+        },
+        {
+          "actual_name": "district",
+          "label": "District Name / மாவட்டத்தின் பெயர்",
+          "mandatory": true,
+          "type": "text"
+        },
+        {
+          "actual_name": "total_family_income",
+          "label": "Total Family Income / மொத்த குடும்ப வருமாணம்",
+          "mandatory": true,
+          "type": "number"
+        }
+      ],
+      "key": "income_info",
+      "label": "Income & Housing Information / வருமானம் மற்றும் வீடு தகவல்"
+    },
+    {
+      "fields": [
+        {
+          "actual_name": "preferred_course",
+          "label": "Preferred course? (Select anyone) / கீழுக்காணும் எந்த பயிற்சியில் சேர விரும்புகிறீர்கள்? (ஏதேனும் ஒன்றை தேர்வுசெய்க)",
+          "mandatory": true,
+          "options": [
+            "Web Development / இணைய மேம்பாடு",
+            "Mobile App Development / மொபைல் ஆப் மேம்பாடு",
+            "Python Programming / பைத்தான் நிரலாக்கம்",
+            "Data Science / தரவு அறிவியல்",
+            "Linux System Administration / லினக்ஸ் கணினி நிர்வாகம்",
+            "IoT (Internet of Things) / IoT",
+            "Other / மற்றவை"
+          ],
+          "type": "select"
+        },
+        {
+          "actual_name": "training_benefit",
+          "label": "How do you think this training will benefit you? / இந்த பயிற்சி எந்த விதத்தில் உங்களுக்கு பயன்தரும் என எண்ணுகிறீர்கள்?",
+          "mandatory": true,
+          "type": "textarea"
+        },
+        {
+          "actual_name": "heard_about_vglug",
+          "default": false,
+          "label": "Have you heard about VGLUG before? / VGLUG பற்றி இதற்கு முன்பு கேள்விப்பட்டுள்ளீர்களா?",
+          "mandatory": false,
+          "type": "boolean"
+        },
+        {
+          "actual_name": "participated_in_vglug_events",
+          "default": false,
+          "label": "Have you participated in any events hosted by VGLUG? / VGLUG நடத்திய ஏதேனும் நிகழ்வுகளில் பங்கேற்றுள்ளீர்களா?",
+          "mandatory": false,
+          "type": "boolean"
+        }
+      ],
+      "key": "course_info",
+      "label": "Course Preference / பயிற்சி விருப்பம்"
+    }
+  ],
+  "success_message": "Your application has been submitted successfully. It will be reviewed as part of our selection process, and shortlisted candidates will be informed via email.\nஉங்கள் விண்ணப்பம் வெற்றிகரமாகச் பரசீலணைக்கு சமர்ப்பிக்கப்பட்டுவிட்டது. தேர்ந்தெடுக்கப்பட்ட விண்ணப்பதாரர்களுக்கு மின்னஞ்சல் வழியாகத் தெரிவிக்கப்படும்.",
+  "title": "VGLUG PYTHON APPLICATION FORM 2026 - 07"
+}
