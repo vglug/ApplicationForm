@@ -76,12 +76,60 @@ export default function FieldRenderer({ field, value, onChange, error, watch, re
   }
 
   if(field.type === 'select'){
+    // Determine options - support conditional_options based on other field values
+    let options = field.options || []
+    if (field.conditional_options) {
+      const vals = watch()
+      // Create lowercase versions for case-insensitive matching
+      const valsLower: Record<string, any> = {}
+      for (const key in vals) {
+        valsLower[key] = typeof vals[key] === 'string' ? vals[key].toLowerCase().trim() : vals[key]
+      }
+
+      for (const condOpt of field.conditional_options) {
+        try {
+          // Convert condition to use lowercase comparison
+          // e.g., "degree in ['BE', 'BTech']" becomes case-insensitive check
+          let expr = condOpt.condition
+
+          // Handle "field in [...]" pattern with case-insensitive matching
+          const inMatch = expr.match(/(\w+)\s+in\s+\[([^\]]+)\]/)
+          if (inMatch) {
+            const fieldName = inMatch[1]
+            const arrayStr = inMatch[2]
+            const items = arrayStr.split(',').map((s: string) => s.trim().replace(/['"]/g, '').toLowerCase())
+            const fieldVal = valsLower[fieldName]
+            if (fieldVal && items.includes(fieldVal)) {
+              options = condOpt.options
+              break
+            }
+            continue
+          }
+
+          // Fallback to standard evaluation
+          expr = expr.replace(/==/g, '===')
+          // eslint-disable-next-line no-new-func
+          const matches = Function('values', `with(values){ return ${expr} }`)(vals)
+          if (matches) {
+            options = condOpt.options
+            break
+          }
+        } catch (e) {
+          // If condition fails, continue to next
+        }
+      }
+      // If no condition matched and there's a default_options, use it
+      if (options === field.options && field.default_options) {
+        options = field.default_options
+      }
+    }
+
     return (
       <div>
         {label}
         <select className={`form-select ${error? 'is-invalid':''}`} value={value||''} onChange={e=>onChange(e.target.value)}>
           <option value="">Choose...</option>
-          {(field.options||[]).map((o:any)=> <option key={o} value={o}>{o}</option>)}
+          {(options||[]).map((o:any)=> <option key={o} value={o}>{o}</option>)}
         </select>
         {error && <div className="invalid-feedback">{error.message || 'Invalid'}</div>}
       </div>

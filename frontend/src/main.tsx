@@ -9,9 +9,9 @@ import './styles.css'
 const RootApp = () => {
   const pathname = window.location.pathname
 
-  // "/form" goes to App (application form)
-  if (pathname === '/form') {
-    return <App />
+  // "/login" or "/admin/*" goes to AdminApp (login or dashboard)
+  if (pathname === '/login' || pathname.startsWith('/admin')) {
+    return <AdminApp />
   }
 
   // "/edit/:token" goes to EditForm for editing existing applications
@@ -22,8 +22,8 @@ const RootApp = () => {
     }
   }
 
-  // Everything else goes to AdminApp (login or dashboard)
-  return <AdminApp />
+  // Everything else (including "/" and "/form") goes to App (application form)
+  return <App />
 }
 
 createRoot(document.getElementById('root')!).render(

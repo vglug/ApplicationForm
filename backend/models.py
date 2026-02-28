@@ -223,6 +223,7 @@ class IncomeInfo(db.Model):
     candidate_id = db.Column(db.String(20), db.ForeignKey('application.candidate_id'), nullable=False, unique=True, index=True)
 
     total_family_income = db.Column(db.String(100), nullable=True, index=True)
+    own_land = db.Column(db.Boolean, nullable=True, default=False)
     own_land_size = db.Column(db.String(100), nullable=True)
     house_ownership = db.Column(db.String(100), nullable=False, index=True)
     full_address = db.Column(db.Text, nullable=False)

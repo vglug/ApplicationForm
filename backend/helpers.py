@@ -98,6 +98,7 @@ def save_normalized_application(structured_data, candidate_id, uuid, form_config
     income_info = IncomeInfo(
         candidate_id=application.candidate_id,
         total_family_income=extract_field_value(income_data, 'total_family_income'),
+        own_land=extract_field_value(income_data, 'own_land') or False,
         own_land_size=extract_field_value(income_data, 'own_land_size'),
         house_ownership=extract_field_value(income_data, 'house_ownership') or '',
         full_address=extract_field_value(income_data, 'full_address') or '',
@@ -194,6 +195,7 @@ def get_application_with_details(application_id):
         },
         'income_info': {
             'total_family_income': application.income_info.total_family_income,
+            'own_land': application.income_info.own_land,
             'own_land_size': application.income_info.own_land_size,
             'house_ownership': application.income_info.house_ownership,
             'full_address': application.income_info.full_address,
@@ -317,6 +319,8 @@ def update_normalized_application(candidate_id, structured_data):
         ii = application.income_info
         if extract_field_value(income_data, 'total_family_income') is not None:
             ii.total_family_income = extract_field_value(income_data, 'total_family_income')
+        if extract_field_value(income_data, 'own_land') is not None:
+            ii.own_land = extract_field_value(income_data, 'own_land')
         if extract_field_value(income_data, 'own_land_size') is not None:
             ii.own_land_size = extract_field_value(income_data, 'own_land_size')
         if extract_field_value(income_data, 'house_ownership') is not None:
