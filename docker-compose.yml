@@ -55,6 +55,8 @@ services:
       SMTP_PASSWORD: ${SMTP_PASSWORD:-}
       FROM_EMAIL: ${FROM_EMAIL:-}
       FROM_NAME: ${FROM_NAME:-VGLUG Training Program}
+      SMTP_SENDER_NAME: ${SMTP_SENDER_NAME:-VGLUG Training Program}
+      FRONTEND_URL: ${FRONTEND_URL:-http://localhost}
     volumes:
       - backend_uploads:/app/uploads
       - backend_logs:/app/application_logs
@@ -84,6 +86,8 @@ services:
       SMTP_PASSWORD: ${SMTP_PASSWORD:-}
       FROM_EMAIL: ${FROM_EMAIL:-}
       FROM_NAME: ${FROM_NAME:-VGLUG Training Program}
+      SMTP_SENDER_NAME: ${SMTP_SENDER_NAME:-VGLUG Training Program}
+      FRONTEND_URL: ${FRONTEND_URL:-http://localhost}
     volumes:
       - backend_logs:/app/application_logs
     depends_on:
@@ -110,6 +114,8 @@ services:
       SMTP_PASSWORD: ${SMTP_PASSWORD:-}
       FROM_EMAIL: ${FROM_EMAIL:-}
       FROM_NAME: ${FROM_NAME:-VGLUG Training Program}
+      SMTP_SENDER_NAME: ${SMTP_SENDER_NAME:-VGLUG Training Program}
+      FRONTEND_URL: ${FRONTEND_URL:-http://localhost}
     depends_on:
       - redis
       - celery_worker
