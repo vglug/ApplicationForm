@@ -113,7 +113,6 @@ def send_edit_link_email(email, name, edit_link, candidate_id):
     smtp_user = os.environ.get('SMTP_USER')
     smtp_password = os.environ.get('SMTP_PASSWORD')
     sender_name = os.environ.get('SMTP_SENDER_NAME', 'VGLUG Training Program')
-    from_email = os.environ.get('FROM_EMAIL', smtp_user)
 
     if not smtp_user or not smtp_password:
         return False, 'Email service not configured'
@@ -121,7 +120,7 @@ def send_edit_link_email(email, name, edit_link, candidate_id):
     try:
         msg = MIMEMultipart('alternative')
         msg['Subject'] = 'Edit Your VGLUG Application'
-        msg['From'] = f'{sender_name} <{from_email}>'
+        msg['From'] = f'{sender_name} <{smtp_user}>'
         msg['To'] = email
 
         text_content = f"""
@@ -192,7 +191,7 @@ https://vglug.org
         with smtplib.SMTP(smtp_host, smtp_port) as server:
             server.starttls()
             server.login(smtp_user, smtp_password)
-            server.sendmail(from_email, email, msg.as_string())
+            server.sendmail(smtp_user, email, msg.as_string())
 
         return True, None
 
@@ -249,10 +248,20 @@ def create_app():
 
     db.init_app(app)
     CORS(app,
-         origins=['http://localhost:5173', 'http://localhost:3000', 'http://127.0.0.1:5173', 'http://127.0.0.1:5000', 'http://127.0.0.1:5001', 'http://localhost:5174'],
-         supports_credentials=True,
-         allow_headers=['Content-Type', 'Authorization'],
-         methods=['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'])
+     origins=[
+         'https://t2026.vglug.org',
+         'http://localhost:5001',
+         'http://localhost:82',   # ✅ Add this
+         'http://localhost:5173',
+         'http://localhost:3000',
+         'http://127.0.0.1:5173',
+         'http://127.0.0.1:5000',
+         'http://127.0.0.1:5001',
+         'http://localhost:5174'
+     ],
+     supports_credentials=True,
+     allow_headers=['Content-Type', 'Authorization'],
+     methods=['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'])
     Migrate(app, db)
     jwt = JWTManager(app)
 
@@ -2885,4 +2894,4 @@ def create_app():
 
 if __name__ == '__main__':
     app = create_app()
-    app.run(host='0.0.0.0', port=int(os.getenv('PORT', 5001)), debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=False)

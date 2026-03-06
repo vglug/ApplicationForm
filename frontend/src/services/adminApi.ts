@@ -1,4 +1,5 @@
-const BASE = (import.meta.env.VITE_API_BASE_URL as string) || (typeof window !== 'undefined' && window.location.hostname !== 'localhost' ? '/api' : 'http://localhost:5001')
+// const BASE = (import.meta.env.VITE_API_BASE_URL as string) || (typeof window !== 'undefined' && window.location.hostname !== 'localhost' ? '/api' : 'http://localhost:5001')
+const BASE = "https://t2026.vglug.org/api/"
 
 export async function adminLogin(email: string, password: string) {
   return fetch(`${BASE}/admin/login`, {

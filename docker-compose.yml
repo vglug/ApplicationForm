@@ -12,7 +12,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     ports:
-      - "5432:5432"
+      - "5433:5432"
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-vglug}"]
       interval: 10s
@@ -56,12 +56,12 @@ services:
       FROM_EMAIL: ${FROM_EMAIL:-}
       FROM_NAME: ${FROM_NAME:-VGLUG Training Program}
       SMTP_SENDER_NAME: ${SMTP_SENDER_NAME:-VGLUG Training Program}
-      FRONTEND_URL: ${FRONTEND_URL:-http://localhost}
+      FRONTEND_URL: ${FRONTEND_URL:-http://localhost:82}
     volumes:
       - backend_uploads:/app/uploads
       - backend_logs:/app/application_logs
     ports:
-      - "5000:5000"
+      - "5001:5000"
     depends_on:
       db:
         condition: service_healthy
@@ -87,7 +87,7 @@ services:
       FROM_EMAIL: ${FROM_EMAIL:-}
       FROM_NAME: ${FROM_NAME:-VGLUG Training Program}
       SMTP_SENDER_NAME: ${SMTP_SENDER_NAME:-VGLUG Training Program}
-      FRONTEND_URL: ${FRONTEND_URL:-http://localhost}
+      FRONTEND_URL: ${FRONTEND_URL:-http://localhost:82}
     volumes:
       - backend_logs:/app/application_logs
     depends_on:
@@ -113,9 +113,9 @@ services:
       SMTP_USER: ${SMTP_USER:-}
       SMTP_PASSWORD: ${SMTP_PASSWORD:-}
       FROM_EMAIL: ${FROM_EMAIL:-}
-      FROM_NAME: ${FROM_NAME:-VGLUG Training Program}
+      FROM_NAME: ${FROM_NAME:-}
       SMTP_SENDER_NAME: ${SMTP_SENDER_NAME:-VGLUG Training Program}
-      FRONTEND_URL: ${FRONTEND_URL:-http://localhost}
+      FRONTEND_URL: ${FRONTEND_URL:-http://localhost:82}
     depends_on:
       - redis
       - celery_worker
@@ -128,7 +128,7 @@ services:
       dockerfile: Dockerfile
     container_name: vglug_frontend
     ports:
-      - "80:80"
+      - "82:80"
     depends_on:
       - backend
     restart: unless-stopped
